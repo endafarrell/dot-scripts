@@ -1,0 +1,25 @@
+#!/usr/bin/perl -w
+# This is a simple script to sum the values for distinct keys sent it.
+
+use strict;
+
+my $VERSION=0.1;
+my %hash = ();
+
+while (<>) {
+    chomp;
+    my ($k,$v) = split(/,/);
+    if ( exists $hash{$k} ){
+        $hash{$k} = $hash{$k} + $v;
+    } else {
+        $hash{$k} = $v;
+    };
+    if ( scalar keys ( %hash ) > 25000000 ){
+        die "The number of distinct entries is too large.";
+    }
+}
+print STDERR "distinct-keys, occurances\n";
+for my $key ( sort keys %hash ){
+    print STDOUT "$key,$hash{$key}\n";
+}
+

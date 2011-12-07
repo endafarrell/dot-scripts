@@ -1,0 +1,21 @@
+#!/usr/bin/perl -w
+
+use strict;
+
+my $VERSION=0.1;
+my %hash = ();
+my $sum = 0.0;
+my $i = 0;
+
+while (<>) {
+    chomp;
+	if ( $_ =~ /^[\+-]*[0-9]*\.*[0-9]*$/ && $_ !~ /^[\. ]*$/  ) {
+		$sum += $_;
+		$i++;
+	}
+}
+print STDOUT "sum: $sum\n";
+print STDOUT "num: $i\n";
+print STDOUT "avg: " . ($sum/$i) . "\n";
+
+
