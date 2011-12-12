@@ -1,4 +1,5 @@
 "" From http://mislav.uniqpath.com/2011/12/vim-revisited/
+"" Note the "ln -s <this-file> ~/.vimrc" :-)
 set nocompatible
 syntax enable
 set encoding=utf-8
@@ -18,4 +19,5 @@ set ignorecase                  " searches are case insensitive...
 set smartcase                   " ... unless they contain at least one capital letter
 
 "" Enda's color
-color default
+color evening
+
