@@ -19,5 +19,9 @@ set ignorecase                  " searches are case insensitive...
 set smartcase                   " ... unless they contain at least one capital letter
 
 "" Enda's color
-color evening
+color elflord
+color macvim                    " Setting the color to macvim is what I want to do, but
+                                " for an unknown reason, it isn't picked up on
+                                " its own, so I need to set and then reset it
+                                " here.
 
