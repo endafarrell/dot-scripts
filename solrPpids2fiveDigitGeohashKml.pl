@@ -11,43 +11,56 @@ my $KML_GEOHASH_LEN =  $ENV{'KML_GEOHASH_LEN'} || 5;
 my %uniqueGeohashs = ();
 
 while (<>) {
-	chomp;
-	my $geoH = substr($_, 0, $KML_GEOHASH_LEN);	
-	if ( exists $uniqueGeohashs{$geoH} ){
-		$uniqueGeohashs{$geoH} = $uniqueGeohashs{$geoH} + 1;
-	} else {
-		$uniqueGeohashs{$geoH} = 1;
-	};
-	# Poor-man's memory/bug limitation
-	if ( scalar keys ( %uniqueGeohashs ) > 5000000 ){
-		die "The number of distinct geo hashs is too large!";
-	}
+  chomp;
+  my $geoH = substr($_, 0, $KML_GEOHASH_LEN); 
+  if ( exists $uniqueGeohashs{$geoH} ){
+    $uniqueGeohashs{$geoH} = $uniqueGeohashs{$geoH} + 1;
+  } else {
+    $uniqueGeohashs{$geoH} = 1;
+  };
+  # Poor-man's memory/bug limitation
+  if ( scalar keys ( %uniqueGeohashs ) > 5000000 ){
+    die "The number of distinct geo hashs is too large!";
+  }
 }
 my $numUniqueGeohashs = scalar keys ( %uniqueGeohashs );
 print kml_header("Shows $numUniqueGeohashs $KML_GEOHASH_LEN-digit geohashs and the count of places therein");
 for my $geoHash ( sort keys %uniqueGeohashs ){
-	my $num = $uniqueGeohashs{$geoHash};
-	my ($latrange, $lngrange) = $gh->decode_to_interval($geoHash);
-	my ($lat, $lng) = $gh->decode($geoHash);
-	print polygon("$num", $lat, $lng, $latrange->[0],$lngrange->[0], $latrange->[1], $lngrange->[1], $num);
-}
+  my $num = $uniqueGeohashs{$geoHash};
+  eval {
+    my ($latrange, $lngrange) = $gh->decode_to_interval($geoHash);
+    my ($lat, $lng) = $gh->decode($geoHash);
+    print polygon("$geoHash: $num", $lat, $lng, $latrange->[0], $lngrange->[0], $latrange->[1], $lngrange->[1], $num);
+  }
+} 
 print kml_footer();
 
 
 # Add just above the polygon line:
 #          <Point> <coordinates>$lng, $lat, $altitude</coordinates> </Point>
 sub polygon {
-    my ($name, $lat, $lng, $lat1, $lng1, $lat2, $lng2, $num) = @_;
-	my $altitude = 3 * $num * (10 ** ($KML_GEOHASH_LEN - 3));
-    return qq(
-      <Placemark>
-        <name>$name</name>
-        <styleUrl>#PolyStyle</styleUrl>
-        <MultiGeometry>
-          <Polygon> <extrude>1</extrude> <altitudeMode>relativeToGround</altitudeMode> <tessellate>1</tessellate> <outerBoundaryIs> <LinearRing> <coordinates> $lng1, $lat1, $altitude $lng2, $lat1, $altitude $lng2, $lat2, $altitude $lng1, $lat2, $altitude $lng1, $lat1, $altitude </coordinates> </LinearRing> </outerBoundaryIs> </Polygon>
-          </MultiGeometry>
-        </Placemark>
-);
+  my ($name, $lat, $lng, $lat1, $lng1, $lat2, $lng2, $num) = @_;
+  my $altitude = 3 * $num * (10 ** ($KML_GEOHASH_LEN - 3));
+  return qq(
+    <Placemark>
+      <name>$name</name>
+      <styleUrl>#PolyStyle</styleUrl>
+      <Polygon>
+        <extrude>1</extrude>
+        <altitudeMode>relativeToGround</altitudeMode>
+        <outerBoundaryIs>
+          <LinearRing>
+            <coordinates>
+             $lng1,$lat1,$altitude
+             $lng2,$lat1,$altitude
+             $lng2,$lat2,$altitude
+             $lng1,$lat2,$altitude
+             $lng1,$lat1,$altitude
+            </coordinates>
+          </LinearRing>
+        </outerBoundaryIs>
+      </Polygon>
+    </Placemark>);
 
 }
 
