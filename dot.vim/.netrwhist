@@ -1,0 +1,6 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhist_cnt =4
+let g:netrw_dirhist_1='/Volumes/mysql-5.5.16-osx10.6-x86_64/MySQL.prefPane'
+let g:netrw_dirhist_2='/Users/efarrell/Dropbox/github/distinct'
+let g:netrw_dirhist_3='/Users/efarrell/.pip'
+let g:netrw_dirhist_4='/workspace/SRCH-24/nose-trunk/lucene3-icu/target/surefire-reports'

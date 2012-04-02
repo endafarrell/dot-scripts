@@ -35,3 +35,12 @@ au BufRead,BufNewFile *_spec.rb
   \ nmap <F8> :!rspec --color %<CR>
 
 filetype plugin indent on       " load file type plugins + indentation
+
+"" http://blog.dispatched.ch/2009/05/24/vim-as-python-ide/
+"" http://www.vim.org/scripts/script.php?script_id=159
+let g:miniBufExplMapWindowNavVim = 1
+let g:miniBufExplMapWindowNavArrows = 1
+let g:miniBufExplMapCTabSwitchBufs = 1
+let g:miniBufExplModSelTarget = 1
+map T :TaskList<CR>
+map P :TlistToggle<CR>
