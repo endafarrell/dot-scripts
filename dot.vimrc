@@ -1,14 +1,15 @@
 "" From http://mislav.uniqpath.com/2011/12/vim-revisited/
 "" Note the "ln -s <this-file> ~/.vimrc" :-)
 set nocompatible
-syntax enable
+syntax on
 set encoding=utf-8
 set showcmd                     " display incomplete commands
-filetype plugin indent on       " load file type plugins + indentation
 
 "" Whitespace
-set nowrap                      " don't wrap lines
-set tabstop=2 shiftwidth=2      " a tab is two spaces
+set wrap
+set textwidth=80
+"set nowrap                      " don't wrap lines
+set tabstop=2 shiftwidth=2 softtabstop=2     " a tab is two spaces
 set expandtab                   " use spaces, not tabs
 set backspace=indent,eol,start  " backspace through everything in insert mode
 
@@ -24,4 +25,13 @@ color macvim                    " Setting the color to macvim is what I want to 
                                 " for an unknown reason, it isn't picked up on
                                 " its own, so I need to set and then reset it
                                 " here.
+" Show me a ruler
+set ruler
 
+" Set up puppet manifest and spec options
+au BufRead,BufNewFile *.pp
+  \ set filetype=puppet
+au BufRead,BufNewFile *_spec.rb
+  \ nmap <F8> :!rspec --color %<CR>
+
+filetype plugin indent on       " load file type plugins + indentation
