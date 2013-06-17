@@ -1,0 +1,11 @@
+#!/bin/bash
+
+if [ ! -f ~/.cascalogrc ]
+then
+  echo ".cascalogrc does not exist in your home directory, please copy from .cascalog/cascalog/"
+  exit 255
+fi
+
+source ~/.cascalogrc
+printf "\e]1;dataos-screen\a"
+ssh -oServerAliveInterval\=5 -tA $DATAOS_NODE screen -RD

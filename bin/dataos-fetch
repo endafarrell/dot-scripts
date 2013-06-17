@@ -1,0 +1,24 @@
+#!/bin/bash
+
+if [ ! -f ~/.cascalogrc ]
+then
+  echo ".cascalogrc does not exist in your home directory, please copy from .cascalog/cascalog/"
+  exit 255
+fi
+
+source ~/.cascalogrc
+
+if [ $# -lt 1 -o $# -gt 2 ]
+then
+  echo "Usage: $0 [FILE] ([PATTERN])"
+  exit 1
+fi
+
+if [ $# -eq 2 ]
+then
+  PATTERN="$2"
+else
+  PATTERN="part*"
+fi
+
+ssh -C $DATAOS_NODE hadoop fs -cat "$1"/"$PATTERN"

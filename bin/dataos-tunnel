@@ -1,0 +1,11 @@
+#!/bin/bash
+
+if [ ! -f ~/.cascalogrc ]
+then
+  echo ".cascalogrc does not exist in your home directory, please copy from .cascalog/cascalog/"
+  exit 255
+fi
+
+source ~/.cascalogrc
+printf "\e]1;dataos-tunnel\a"
+ssh -L ${DATAOS_PORT}:localhost:${DATAOS_PORT} -v -N $DATAOS_NODE

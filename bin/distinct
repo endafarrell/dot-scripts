@@ -1,0 +1,23 @@
+#!/usr/bin/perl -w
+# This is a simple script to count the number of distinct entries sent it.
+
+use strict;
+
+my $VERSION=0.1;
+my %hash = ();
+
+while (<>) {
+    chomp;
+    if ( exists $hash{$_} ){
+        $hash{$_} = $hash{$_} + 1;
+    } else {
+        $hash{$_} = 1;
+    };
+    if ( scalar keys ( %hash ) > 25000000 ){
+        die "The number of distinct entries is too large.";
+    }
+}
+print STDERR "distinct-keys, occurances\n";
+for my $key ( sort keys %hash ){
+    print STDOUT "$key,$hash{$key}\n";
+}

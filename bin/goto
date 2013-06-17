@@ -1,0 +1,17 @@
+#!/bin/bash
+REMOTE=$1
+printf "\e]1;$1\a"
+if [ "testhost-1" == "$REMOTE" ]; then
+    ssh $REMOTE
+elif [ "veracruz" == "$REMOTE" ]; then
+    ssh $REMOTE 
+else
+    SETUP=$(ssh $REMOTE cat .bashrc | grep -c 'STARTED_SCREEN')
+    if (($SETUP == 0)); then
+        echo "setting up $REMOTE for auto-screen-ing"
+   	    cat ~/goto.bashrc | ssh $REMOTE "cat >> ~/.bashrc"
+   	    cat ~/goto.screenrc | ssh $REMOTE "cat >> ~/.screenrc"
+    fi
+    ssh $REMOTE
+fi
+
