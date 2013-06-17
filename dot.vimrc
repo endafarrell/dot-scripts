@@ -9,7 +9,7 @@ set showcmd                     " display incomplete commands
 set wrap
 set textwidth=80
 "set nowrap                      " don't wrap lines
-set tabstop=2 shiftwidth=2 softtabstop=2     " a tab is two spaces
+set tabstop=4 shiftwidth=4 softtabstop=4     " a tab is four spaces
 set expandtab                   " use spaces, not tabs
 set backspace=indent,eol,start  " backspace through everything in insert mode
 
@@ -27,6 +27,10 @@ color macvim                    " Setting the color to macvim is what I want to 
                                 " here.
 " Show me a ruler
 set ruler
+set number
+
+filetype plugin indent on       " load file type plugins + indentation
+filetype plugin on
 
 " Set up puppet manifest and spec options
 au BufRead,BufNewFile *.pp
@@ -34,13 +38,3 @@ au BufRead,BufNewFile *.pp
 au BufRead,BufNewFile *_spec.rb
   \ nmap <F8> :!rspec --color %<CR>
 
-filetype plugin indent on       " load file type plugins + indentation
-
-"" http://blog.dispatched.ch/2009/05/24/vim-as-python-ide/
-"" http://www.vim.org/scripts/script.php?script_id=159
-let g:miniBufExplMapWindowNavVim = 1
-let g:miniBufExplMapWindowNavArrows = 1
-let g:miniBufExplMapCTabSwitchBufs = 1
-let g:miniBufExplModSelTarget = 1
-map T :TaskList<CR>
-map P :TlistToggle<CR>
