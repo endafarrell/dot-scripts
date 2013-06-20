@@ -35,7 +35,7 @@
 ;; Let the Mac OSX /usr/bin/open figure out what to do with
 ;; these pdf files 
 (setq gnus-uu-user-view-rules
-      (list '("\\.\(doc\|xsl\|pdf\|png\|jpg\)$" "/usr/bin/open %s")))
+      (list '("\\.\(doc\|xsl\|pdf\|png\|jpg\)x?$" "/usr/bin/open %s")))
 
 ;; Loading only unread messages can be annoying if you have
 ;; threaded view enabled,

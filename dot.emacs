@@ -1,5 +1,12 @@
 (require 'epa-file)  (epa-file-enable)
 
+;; Gets SVN help:
+(autoload 'svn-status "dsvn" "Run `svn status'." t)
+(autoload 'svn-update "dsvn" "Run `svn update'." t)
+;; This file integrates well with vc-svn, so you might want to do this as well:
+;;  (require 'vc-svn)
+
+
 ;; This gets my cascalog setup going
 (add-to-list 'load-path (expand-file-name "~/.cascalog/emacs"))
 (load "dot-cascalog-autoloads")
