@@ -503,9 +503,7 @@ codes = {
 	"ZWE":"716"
 }
 
-sedoc = {}
-for k in codes:
-	sedoc[codes[k]] = k
+sedoc = {codes[k]: k for k in codes}
 	
 def main(argv):
 	a = sys.argv[1]

@@ -57,12 +57,9 @@ deps = frozenset(deps)
 def nextOrder(modules, deps, ordered, unordered, fileName):
   order = set()
   for module in unordered:
-    isOrd = True
-    for (left, right) in deps:
-      if module == left:
-        if right not in ordered:
           # It's not already ordered, so this is not this order
-          isOrd = False
+    isOrd = not any(module == left and right not in ordered
+                    for (left, right) in deps)
     if isOrd:
       order.add(module)
 
@@ -81,11 +78,8 @@ def nextOrder(modules, deps, ordered, unordered, fileName):
 def nextGeneration(modules, deps, gened, ungened, fileName):
   gen = set()
   for module in ungened:
-    isGen = True
-    for (left, right) in deps:
-      if module == right:
-        if left not in gened:
-          isGen = False
+    isGen = not any(module == right and left not in gened
+                    for (left, right) in deps)
     if isGen:
       gen.add(module)
 

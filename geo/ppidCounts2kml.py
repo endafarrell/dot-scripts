@@ -20,7 +20,7 @@ class PpidCounts2KML:
     #print geohash.bbox("u27")
     i = 0
     for csv in self.csvs:
-      i = i + 1
+      i += 1
       place = self.processPlace(csv, i)
       self.csvs[i - 1] = place
       if i == 1001:

@@ -62,15 +62,15 @@ def _encode_i2c(lat,lon,lat_length,lon_length):
         else:
                 a = lat
                 b = lon
-        
+
         boost = (0,1,4,5,16,17,20,21)
         ret = ''
-        for i in range(precision):
+        for _ in range(precision):
                 ret+=_base32[(boost[a&7]+(boost[b&3]<<1))&0x1F]
                 t = a>>3
                 a = b>>2
                 b = t
-        
+
         return ret[::-1]
 
 def encode(latitude, longitude, precision=12):
@@ -131,8 +131,8 @@ def _decode_c2i(hashcode):
         for i in hashcode:
                 t = _base32_map[i]
                 if bit_length%2==0:
-                        lon = lon<<3
-                        lat = lat<<2
+                        lon <<= 3
+                        lat <<= 2
                         lon += (t>>2)&4
                         lat += (t>>2)&2
                         lon += (t>>1)&2
@@ -141,8 +141,8 @@ def _decode_c2i(hashcode):
                         lon_length+=3
                         lat_length+=2
                 else:
-                        lon = lon<<2
-                        lat = lat<<3
+                        lon <<= 2
+                        lat <<= 3
                         lat += (t>>2)&4
                         lon += (t>>2)&2
                         lat += (t>>1)&2
@@ -150,9 +150,9 @@ def _decode_c2i(hashcode):
                         lat += t&1
                         lon_length+=2
                         lat_length+=3
-                
+
                 bit_length+=5
-        
+
         return (lat,lon,lat_length,lon_length)
 
 def decode(hashcode, delta=False):

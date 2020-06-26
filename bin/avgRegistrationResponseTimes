@@ -23,8 +23,8 @@ def registrationsFromFile(counter, arg):
         line = f.readline()
         if not line: break
         numOf, timeOf = registrationsFromLine(counter, line.rstrip())
-        totalNumOf = totalNumOf + numOf
-        totalTimeOf = totalTimeOf + timeOf
+        totalNumOf += numOf
+        totalTimeOf += timeOf
     return totalNumOf, totalTimeOf
 
 # The "main"
